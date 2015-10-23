@@ -85,3 +85,5 @@ target/
 
 .ipynb_checkpoints
 .Rhistory
+
+data/
