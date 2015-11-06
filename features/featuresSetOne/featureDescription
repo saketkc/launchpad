@@ -1,0 +1,29 @@
+reflectivityCutoff = 10.5, 14.5, 17.5, 20.0, 22.5, 25.0, 28.0, 31.5, 36.0
+kdpCutoff = -3.830002, -2.110001, -1.059998, -0.350006, 0.000000, 0.699997, 1.059998, 2.119995, 3.879990
+
+Ref and Kdp columns have been discretized into 10 bins
+
+column1 = ref column empty/Nan
+column2 = ref value <= cuttOff1
+column3 = ref value > cuttOff1 but ref value <= cuttOff2
+column4 = ref value > cuttOff2 but ref value <= cuttOff3
+column5 = ref value > cuttOff3 but ref value <= cuttOff4
+column6 = ref value > cuttOff4 but ref value <= cuttOff5
+column7 = ref value > cuttOff5 but ref value <= cuttOff6
+column8 = ref value > cuttOff6 but ref value <= cuttOff7
+column9 = ref value > cuttOff7 but ref value <= cuttOff8
+column10 = ref value > cuttOff8 but ref value <= cuttOff9
+column11 = ref value > cuttOff9 
+column12 = kdp column empty/Nan
+column13 = kdp value <= cuttOff1
+column14 = kdp value > cuttOff1 but kdp value <= cuttOff2
+column15 = kdp value > cuttOff2 but kdp value <= cuttOff3
+column16 = kdp value > cuttOff3 but kdp value <= cuttOff4
+column17 = kdp value > cuttOff4 but kdp value <= cuttOff5
+column18 = kdp value > cuttOff5 but kdp value <= cuttOff6
+column19 = kdp value > cuttOff6 but kdp value <= cuttOff7
+column20 = kdp value > cuttOff7 but kdp value <= cuttOff8
+column21 = kdp value > cuttOff8 but kdp value <= cuttOff9
+column22 = kdp value > cuttOff9 
+column23 = Number of Scans in an hour
+column24 = Rainfall in mm recorder at gauge / YLabel
