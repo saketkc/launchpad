@@ -1,0 +1,7 @@
+Here rows having NAN in ref OR Nan in KDP have been filtered
+
+Format :
+column1 = mean of ref
+column2 = mean of kdp
+column3 = number of scans
+column4 = ylabel
