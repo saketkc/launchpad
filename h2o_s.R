@@ -82,7 +82,7 @@ testHex<-as.h2o(test[,.(
 
 submission<-fread("./data/sample_solution.csv")
 predictions<-as.data.frame(h2o.predict(rfHex,testHex))
-submission$Expected<- 0.7 * expm1(predictions$predict) + 0.3 * submission$Expected
+submission$Expected<- 0.8 * expm1(predictions$predict) + 0.2 * submission$Expected
 
 #convert expected values to 0.01in values
 submission$Expected <- round(submission$Expected / 0.254) * 0.254

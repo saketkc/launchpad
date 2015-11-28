@@ -33,4 +33,49 @@ rfHex<-h2o.gbm(x=c("dist", "refArea5", "refArea9", "meanRefcomp","meanRefcomp5",
     y="target", 
     training_frame=trainHex,
     model_id="rfStarter.hex", 
-    nfolds=10)
+    nfolds=10,
+    ntrees = 3000)
+
+rfHex
+h2o.varimp(rfHex)
+rm(train)
+
+test<-fread("./data/test.csv",select=c(1,2,3,4,6,7,8,10,11,16,18, 19))
+
+#Cut off Ref values < 0
+test$Ref_5x5_50th[which(test$Ref_5x5_50th < 0)] <- NA
+test$Ref_5x5_90th[which(test$Ref_5x5_90th < 0)] <- NA
+test$RefComposite[which(test$RefComposite < 0)] <- NA
+test$RefComposite_5x5_50th[which(test$RefComposite_5x5_50th < 0)] <- NA
+test$RefComposite_5x5_90th[which(test$RefComposite_5x5_90th < 0)] <- NA
+test$Ref[which(test$Ref < 0)] <- NA
+
+
+testHex<-as.h2o(test[,.(
+  dist   = mean(radardist_km, na.rm = T),
+  refArea5   = mean(Ref_5x5_50th, na.rm = T),
+  refArea9  = mean(Ref_5x5_90th, na.rm = T),
+  meanRefcomp = mean(RefComposite,na.rm=T),
+  meanRefcomp5 = mean(RefComposite_5x5_50th,na.rm=T),
+  meanRefcomp9 = mean(RefComposite_5x5_90th,na.rm=T),
+  zdr   = mean(Zdr, na.rm = T),
+  zdr5   = mean(Zdr_5x5_50th, na.rm = T),
+  zdr9   = mean(Zdr_5x5_90th, na.rm = T),
+  
+  meanRef = mean(Ref,na.rm=T),
+  sumRef = sum(Ref,na.rm=T),
+  records = .N,
+  naCounts = sum(is.na(Ref))
+),Id],destination_frame="test.hex")
+
+summary(testHex)
+
+submission<-fread("./data/sample_solution.csv")
+predictions<-as.data.frame(h2o.predict(rfHex,testHex))
+submission$Expected<- 0.8 * expm1(predictions$predict) + 0.2 * submission$Expected
+
+#convert expected values to 0.01in values
+submission$Expected <- round(submission$Expected / 0.254) * 0.254
+
+summary(submission)
+write.csv(submission,"~/rfv3cn3_27Nov.csv",row.names=F)
